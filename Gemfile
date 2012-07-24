@@ -11,6 +11,10 @@ group :assets do
   # gem 'therubyracer'
 end
 
+group :test, :development do
+  gem 'dynamic_form', '1.1.4'
+end
+
 group :development do
 	gem 'rspec-rails', '2.11.0' 
 	gem 'faker', '0.3.1'

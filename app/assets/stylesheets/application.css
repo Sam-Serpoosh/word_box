@@ -125,3 +125,9 @@ footer {
 footer nav {
   float: none;
 }
+
+/* Fields */
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
