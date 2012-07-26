@@ -1,6 +1,6 @@
 WordBox::Application.routes.draw do
 
-  resources :users, :only => [:show, :new, :create]
+  resources :users, :only => [:show, :new, :create, :edit, :update]
   
   match "/home", :to => "pages#home" 
   match "/about", :to => "pages#about" 

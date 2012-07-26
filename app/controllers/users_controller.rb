@@ -1,15 +1,14 @@
 class UsersController < ApplicationController
+  before_filter :find_user, :only => [:show]
   def new
     @user = User.new
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
+  def show; end
   
   def create
-    @user = User.new(params[:user])
-    if @user.save
+    signed_up = sign_up
+    if signed_up
       flash[:success] = "Signed up successfully."
       redirect_to user_path(@user)
     else
@@ -17,4 +16,14 @@ class UsersController < ApplicationController
       render :action => "new"
     end
   end
+
+  private
+    def find_user
+      @user = User.find(params[:id])
+    end
+
+    def sign_up
+      @user = User.new(params[:user])
+      SignUp.new.sign_up(@user)
+    end
 end
