@@ -1,7 +1,7 @@
 WordBox::Application.routes.draw do
 
   resources :users, :only => [:show, :new, :create, :edit, :update]
-  resources :sessions, :only => [:new, :create]
+  resources :sessions, :only => [:new, :create, :destroy]
 
   post '/sessions',
     :to => "sessions#create",
@@ -12,6 +12,7 @@ WordBox::Application.routes.draw do
   match "/contact", :to => "pages#contact" 
   match "/signup", :to => "users#new" 
   match "/signin", :to => "sessions#new"
+  match "/signout", :to => "sessions#destroy"
 
   root :to => "pages#home"
 

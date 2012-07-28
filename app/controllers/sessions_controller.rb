@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+
+  def new
+    @title = "sign in"
+  end
+
   def create
     authenticated = authenticate_user
     if authenticated
@@ -6,9 +11,14 @@ class SessionsController < ApplicationController
       flash[:success] = "Signed in successfully."
       redirect_to user_path(@user)
     else
-      flash[:error] = "Invalid email/password"
+      flash.now[:error] = "Invalid email/password"
       render :action => "new"
     end
+  end
+
+  def destroy
+    sign_out
+    redirect_to root_path
   end
 
   private
