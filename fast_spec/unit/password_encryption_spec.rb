@@ -1,4 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + "/../app/services/password_encryption")
+require_relative "../spec_helper_lite"
+require_relative_to_root "app/services/password_encryption"
 
 module Digest
   class SHA2
