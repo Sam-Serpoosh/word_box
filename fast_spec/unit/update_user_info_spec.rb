@@ -1,5 +1,5 @@
 require_relative "../spec_helper_lite"
-require_relative_to_root "app/services/sign_up"
+require_relative_to_root "app/services/update_user_info"
 
 class SignUp
 end
@@ -11,8 +11,6 @@ describe UpdateUserInfo do
     signup = stub(:sign_up => updated)
     SignUp.stub(:new => signup)
 
-    updated = UpdateUserInfo.update_info(user)
-
-    updated.should == updated 
+    UpdateUserInfo.new(SignUp.new).update(user).should == updated
   end
 end

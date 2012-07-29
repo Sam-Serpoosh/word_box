@@ -12,9 +12,3 @@ class SignUp
     user.save && true
   end
 end
-
-class UpdateUserInfo
-  def self.update_info(user)
-    SignUp.new.sign_up(user)
-  end
-end
