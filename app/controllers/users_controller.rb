@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!, :only => [:edit, :update]
   before_filter :find_user, :only => [:show, :edit, :update]
+
   def new
     @user = User.new
   end
@@ -12,7 +14,7 @@ class UsersController < ApplicationController
       flash[:success] = "Signed up successfully."
       redirect_to user_path(@user)
     else
-      flash[:error] = "User has not been created."
+      flash.now[:error] = "User has not been created."
       render :action => "new"
     end
   end

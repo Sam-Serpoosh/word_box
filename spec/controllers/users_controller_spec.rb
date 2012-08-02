@@ -11,7 +11,7 @@ describe UsersController do
   describe "creating" do
     it "doesn't create user with invalid information" do
       post :create, :user => { :name => "" }
-      flash[:error].should =~ /has not been created./
+      flash.now[:error].should =~ /has not been created./
       response.should render_template("new")
     end
 
@@ -28,16 +28,35 @@ describe UsersController do
       @user = User.new(:name => "sam", :email => "sam@example.com",
                       :password => "password", :password_confirmation => "password")
       SignUp.new.sign_up(@user)
+      test_sign_in(@user)
+    end
+
+    context "#deny_access" do
+      before do
+        test_sign_out
+      end
+
+      it "denies access to edit when not signed in" do
+        get :edit, :id => @user.id
+        flash.now[:error].should =~ /should sign in first./i
+        response.should redirect_to(signin_path)
+      end
+
+      it "denies access to update when not signed in" do
+        put :update, { :id => @user.id, :user => {} }
+        flash.now[:error].should =~ /should sign in first./i
+        response.should redirect_to(signin_path)
+      end
     end
     
-    context "editting" do
+    context "#editting" do
       it "assigns the correct user" do
         get :edit, :id => @user.id
         assigns(:user).should == @user 
       end
     end
 
-    context "updating" do
+    context "#updating" do
       before do
         @valid_params = { :name => "john", :email => "john@example.com", 
                           :password => "password", :password_confirmation => "password" }
