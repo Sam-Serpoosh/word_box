@@ -11,4 +11,12 @@ describe Word do
       word.should_not be_valid
     end
   end
+
+  context "#user_association" do
+    it "should associate with a user" do
+      user = FactoryGirl.create(:user)
+      word = FactoryGirl.create(:word, :user => user) 
+      word.user.should == user
+    end
+  end
 end

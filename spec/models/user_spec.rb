@@ -38,4 +38,19 @@ describe User do
       user.should_not be_valid
     end
   end
+
+  context "#word_association" do
+    it "associates with words" do
+      user = FactoryGirl.create(:user)
+      word = FactoryGirl.create(:word, :user => user)
+      user.words.should == [word]
+    end
+
+    it "builds word through the association" do
+      user = FactoryGirl.create(:user)
+      user.words.create!(:vocabulary => "hello", :meaning => "salam")
+      user.words.count.should == 1
+      user.words.first.vocabulary.should == "hello"
+    end
+  end
 end

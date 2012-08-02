@@ -2,6 +2,7 @@ WordBox::Application.routes.draw do
 
   resources :users, :only => [:show, :new, :create, :edit, :update]
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :words, :only => [:index]
 
   post '/sessions',
     :to => "sessions#create",

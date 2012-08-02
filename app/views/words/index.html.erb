@@ -1,0 +1,14 @@
+<% row_count = 1 %>
+<table border=1, summary="words of current user">
+  <thead>
+    <th>No</td>
+    <th>Vocabulary</td>
+    <th>Meaning</td>
+  </thead>
+  <tbody>
+    <% @words.each do |word| %>
+      <%= render :partial => "word", :locals => { :word => word, :row_count => row_count } %>
+      <% row_count += 1 %> 
+    <% end %>
+  </tbody>
+</table>

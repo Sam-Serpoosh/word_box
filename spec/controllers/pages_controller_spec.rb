@@ -19,4 +19,14 @@ describe PagesController do
       response.should have_selector("title", :content => "Contact")
     end
   end
+
+  context"#links_while_signed_in" do
+    before do
+      test_sign_in(FactoryGirl.create(:user))
+    end
+    it "has words link" do
+      get :home
+      response.should have_selector("a", :content => "Words")
+    end
+  end
 end
