@@ -1,0 +1,15 @@
+<%= form_for(@word) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :vocabulary %><br>
+    <%= f.text_field :vocabulary %>
+  </div>
+  <div class="field">
+    <%= f.label :meaning %><br>
+    <%= f.text_field :meaning %>
+  </div>
+  <div class="action">
+    <%= f.submit %>
+  </div> 
+<% end %>

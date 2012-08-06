@@ -1,5 +1,5 @@
 <tr>
   <td><%= row_count %></td>
-  <td><%= word.vocabulary %></td>
+  <td><%= link_to word.vocabulary, word_path(word) %></td>
   <td><%= word.meaning %></td>
 </tr>

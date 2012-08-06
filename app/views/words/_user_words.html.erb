@@ -1,0 +1,5 @@
+<% row_count = 1 %>
+<% @words.each do |word| %>
+  <%= render :partial => "word", :locals => { :word => word, :row_count => row_count } %>
+  <% row_count += 1 %> 
+<% end %>

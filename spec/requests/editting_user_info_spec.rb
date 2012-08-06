@@ -1,9 +1,12 @@
 require 'spec_helper'
 
 describe "Editting user info" do
-  it "updates user information" do
+  before do
     test_sign_up
     test_integration_sign_in
+  end
+
+  it "updates user information" do
     new_name = "John"
 
     click_link "Settings"

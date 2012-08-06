@@ -1,4 +1,5 @@
-<% row_count = 1 %>
+<%= link_to "Add Word", new_word_path %><br /><br />
+
 <table border=1, summary="words of current user">
   <thead>
     <th>No</td>
@@ -6,9 +7,6 @@
     <th>Meaning</td>
   </thead>
   <tbody>
-    <% @words.each do |word| %>
-      <%= render :partial => "word", :locals => { :word => word, :row_count => row_count } %>
-      <% row_count += 1 %> 
-    <% end %>
+    <%= render "user_words" %>
   </tbody>
 </table>
