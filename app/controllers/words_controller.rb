@@ -1,12 +1,13 @@
 class WordsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:index, :new, :create]
+  before_filter :authenticate_user!, :only => [:index, :new, :create, 
+                                               :edit, :update]
   
   def index
     @words = current_user.words
   end
 
   def show
-    @word = Word.find(params[:id])
+    find_word
   end
   
   def new
@@ -23,4 +24,24 @@ class WordsController < ApplicationController
       render :action => "new"
     end
   end
+
+  def edit
+    find_word
+  end
+
+  def update
+    find_word
+    if @word.update_attributes(params[:word])
+      flash[:success] = "Word has been updated."
+      redirect_to word_path(@word)
+    else
+      flash[:error] = "Word has not been updated."
+      render :action => :edit
+    end
+  end
+
+  private
+    def find_word
+      @word = Word.find(params[:id])
+    end
 end

@@ -72,4 +72,48 @@ describe WordsController do
       assigns(:word).should == word
     end
   end
+
+  describe "editting and updating" do
+    before do
+      @user = FactoryGirl.create(:user)
+      @word = FactoryGirl.create(:word, :user => @user)
+    end
+
+    context "#deny_access" do
+      it "denies access to editting word when not signed in" do
+        get :edit, :id => @word.id
+        response.should redirect_to(signin_path)
+      end
+
+      it "denies access to update word when not signed in" do
+        put :update, :id => {}
+        response.should redirect_to(signin_path) 
+      end
+    end
+
+    context "#have_access" do
+      before do 
+        test_sign_in(@user)
+      end
+
+      it "assings the correct word for editting" do
+        get :edit, :id => @word
+        assigns(:word).should == @word
+      end
+
+      it "doesn't updates the word with wrong values" do
+        put :update, { :id => @word.id, :word => { :vocabulary => "" } }
+        flash[:error].should =~ /not been updated./i
+        response.should render_template("edit")
+      end
+
+      it "updates the word" do
+        put :update, :id => @word.id, :word => { :vocabulary => "hi" } 
+        flash[:success].should =~ /been updated./i
+        @word.reload
+        @word.vocabulary.should == "hi"
+        response.should redirect_to(word_path(@word))
+      end
+    end
+  end
 end
