@@ -36,6 +36,17 @@ class WordsController < ApplicationController
     end
   end
 
+  def destroy
+    find_word
+    if @word.user == current_user 
+      @word.destroy
+      flash[:success] = "Deleted."
+    else
+      flash[:error] = "You can't delete others words."
+    end
+    redirect_to words_path
+  end
+
   private
     def find_word
       @word = Word.find(params[:id])

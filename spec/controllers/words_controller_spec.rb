@@ -116,4 +116,33 @@ describe WordsController do
       end
     end
   end
+
+  describe "deleting" do
+    before do
+      @user = FactoryGirl.create(:user)
+      @word = FactoryGirl.create(:word, :user => @user)
+      test_sign_in(@user)
+    end
+
+    context "#others_words" do
+      before do
+        @other_user = FactoryGirl.create(:user, :email => FactoryGirl.generate(:email))
+        @other_word = FactoryGirl.create(:word)
+      end
+      
+      it "can't delete other's words" do
+        delete :destroy, :id => @other_word.id
+        flash[:error].should =~ /can't delete others words./i
+        response.should redirect_to(words_path)
+      end
+    end
+
+    context "#own_words" do
+      it "deletes the word" do
+        delete :destroy, :id => @word.id
+        flash[:success].should =~ /deleted./i
+        response.should redirect_to(words_path)
+      end
+    end
+  end
 end

@@ -1,5 +1,7 @@
 <div>
   <%= link_to "Edit Word", edit_word_path(@word) %>
+  <%= link_to "Delete", word_path(@word), :method => :delete, 
+    :confirm => "you sure?" %>
 </div>
 <div>
   <h3><%= @word.vocabulary %>: <%= @word.meaning %></h3>
