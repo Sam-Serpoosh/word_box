@@ -8,4 +8,14 @@ class ApplicationController < ActionController::Base
       redirect_to signin_path
     end
   end
+
+  def success_action(message, redirect_path)
+    flash[:success] = message
+    redirect_to redirect_path
+  end
+  
+  def failed_action(message, action)
+    flash[:error] = message
+    render :action => action
+  end
 end

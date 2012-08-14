@@ -1,34 +1,34 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :only => [:edit, :update]
-  before_filter :find_user, :only => [:show, :edit, :update]
 
   def new
     @user = User.new
   end
 
-  def show; end
+  def show
+    find_user
+  end
   
   def create
     signed_up = sign_up
     if signed_up
-      flash[:success] = "Signed up successfully."
-      redirect_to user_path(@user)
+      success_action("Signed up successfully.", user_path(@user))
     else
-      flash.now[:error] = "User has not been created."
-      render :action => "new"
+      failed_action("User has not been created.", "new")
     end
   end
 
-  def edit; end
+  def edit 
+    find_user
+  end
 
   def update
+    find_user
     updated = update_info 
     if updated
-      flash[:success] = "User has been updated."
-      redirect_to user_path(@user)
+      success_action("User has been updated.", user_path(@user))
     else
-      flash[:error] = "User has not been updated."
-      render :action => "edit"
+      failed_action("User has not been updated.", "edit")
     end
   end
 

@@ -17,11 +17,9 @@ class WordsController < ApplicationController
   def create
     @word = current_user.words.build(params[:word]) 
     if @word.save
-      flash[:success] = "Added word."
-      redirect_to word_path(@word)
+      success_action("Added word.", word_path(@word))
     else
-      flash[:error] = "Invalid Vocabulary/Meaning"
-      render :action => "new"
+      failed_action("Invalid Vocabulary/Meaning", "new")
     end
   end
 
@@ -32,11 +30,9 @@ class WordsController < ApplicationController
   def update
     find_word
     if @word.update_attributes(params[:word])
-      flash[:success] = "Word has been updated."
-      redirect_to word_path(@word)
+      success_action("Word has been updated.", word_path(@word))
     else
-      flash[:error] = "Word has not been updated."
-      render :action => :edit
+      failed_action("Word has not been updated.", "edit")
     end
   end
 
