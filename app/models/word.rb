@@ -5,4 +5,8 @@ class Word < ActiveRecord::Base
 
   validates :vocabulary, :presence => true
   validates :meaning, :presence => true
+
+  def self.today
+    where("created_at > ?", 1.day.ago)
+  end
 end

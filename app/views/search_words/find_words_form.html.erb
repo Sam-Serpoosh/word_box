@@ -1,0 +1,10 @@
+<%= form_for find_words_path, :method => :post do |f| %>
+  <div class="field">
+    <%= label_tag "Added When: " %>
+    <%= select_tag("find[search_criteria]", options_for_select(
+    [["today", 1], ["last_week", 2], ["last_month", 3]])) %>
+    <%= submit_tag "Find Words" %><br /><br />
+  </div>
+<% end %>
+
+<%= render "words/user_words_table" %>
